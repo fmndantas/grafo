@@ -32,4 +32,9 @@ public class FiguraGui {
     public XY obterCentro() {
         return centro;
     }
+
+    @Override
+    public String toString() {
+        return "FiguraGui[Id=" + obterId() + ", " + obterCentro() + "]";
+    }
 }

@@ -9,12 +9,14 @@ public class ReacaoSelecao extends Reacao {
     void executar(EventoGui e) {
         if (e.obterTipoEvento().equals(EventGuiEnum.CLIQUE)) {
             status = ReacaoStatusEnum.INICIADO;
-            gerenciador.obterFiguras().forEach(x -> {
-                if (x.clicouDentro(e)) {
-                    gerenciador.iluminarFigura(x.obterId());
+            for (FiguraGui f : gerenciador.obterFiguras()) {
+                if (f.clicouDentro(e)) {
+                    System.out.println("Selecionou objeto " + f);
+                    gerenciador.iluminarFigura(f.obterId());
+                    status = ReacaoStatusEnum.FINALIZADO;
+                    break;
                 }
-            });
-            status = ReacaoStatusEnum.FINALIZADO;
+            }
             anularReacao();
         }
     }
