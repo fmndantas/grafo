@@ -21,6 +21,7 @@ public class ReacaoNo extends Reacao {
                     diametro
             );
             var circulo = new FiguraGui(gerenciador.obterProximoId(), shape, e.obterXy());
+            // circulo.adicionarManipulador(new Manipulador(e.obterXy(), circulo));
             gerenciador.adicionarNo(circulo);
             status = ReacaoStatusEnum.FINALIZADO;
             anularReacao();

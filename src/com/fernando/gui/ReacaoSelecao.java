@@ -12,11 +12,16 @@ public class ReacaoSelecao extends Reacao {
             for (FiguraGui f : gerenciador.obterFiguras()) {
                 if (f.clicouDentro(e)) {
                     System.out.println("Selecionou objeto " + f);
-                    gerenciador.iluminarFigura(f.obterId());
-                    status = ReacaoStatusEnum.FINALIZADO;
-                    break;
+                    this.gerenciador.selecionarFigura(f);
+                }
+                else {
+                    this.gerenciador.desselecionarFigura(f);
                 }
             }
+            status = ReacaoStatusEnum.FINALIZADO;
+        }
+        this.gerenciador.atualizarQuadro();
+        if (status == ReacaoStatusEnum.FINALIZADO) {
             anularReacao();
         }
     }

@@ -9,10 +9,12 @@ public class Gerenciador extends Receptor {
     private Quadro quadro;
     private List<FiguraGui> figuras;
     private Long idAtual = 1L;
+    private FiguraGui figuraSelecionada;
 
     Gerenciador() {
         this.reacao = new ReacaoVazia();
         this.figuras = new ArrayList<>();
+        this.figuraSelecionada = null;
     }
 
     public void setQuadro(Quadro quadro) {
@@ -29,6 +31,7 @@ public class Gerenciador extends Receptor {
                 case INSERIR_ARESTA -> reacao = new ReacaoAresta(this);
                 case INSERIR_NO -> reacao = new ReacaoNo(this);
                 case SELECIONAR -> reacao = new ReacaoSelecao(this);
+                case MOVER -> reacao = new ReacaoMover(this);
             }
         }
     }
@@ -56,25 +59,34 @@ public class Gerenciador extends Receptor {
         determinarFiguras(obterFiguras().stream().filter(x -> !x.obterId().equals(id)).collect(Collectors.toList()));
     }
 
-    FiguraGui obterFiguraPeloId(Long id) {
-        return obterFiguras().stream().filter(x -> x.obterId().equals(id)).collect(Collectors.toList()).get(0);
-    }
-
     void adicionarAresta(FiguraGui aresta) {
         adicionarFigura(aresta);
-        quadro.atualizarInterface();
+        atualizarQuadro();
     }
 
     void adicionarNo(FiguraGui noGrafico) {
         adicionarFigura(noGrafico);
+        atualizarQuadro();
+    }
+
+    void atualizarQuadro() {
         quadro.atualizarInterface();
     }
 
-    void iluminarFigura(Long id) {
+    void mostrarManipuladoresFigura(Long id) {
+        quadro.atualizarInterface();
+    }
+
+    public void esconderManipuladoresFigura(Long id) {
+        quadro.atualizarInterface();
     }
 
     Long obterProximoId() {
         return idAtual++;
+    }
+
+    FiguraGui obterFiguraPeloId(Long id) {
+        return obterFiguras().stream().filter(x -> x.obterId().equals(id)).collect(Collectors.toList()).get(0);
     }
 
     FiguraGui obterFiguraPeloXy(XY xy) {
@@ -91,5 +103,15 @@ public class Gerenciador extends Receptor {
 
     private void adicionarFigura(FiguraGui figuraGui) {
         obterFiguras().add(figuraGui);
+    }
+
+    public void selecionarFigura(FiguraGui f) {
+        f.selecionarFigura();
+        figuraSelecionada = f;
+    }
+
+    public void desselecionarFigura(FiguraGui f) {
+        f.desselecionarFigura();
+        figuraSelecionada = null;
     }
 }

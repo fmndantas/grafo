@@ -4,5 +4,6 @@ public enum EventoGrafoEnum {
     INSERIR_ARESTA,
     INSERIR_NO,
     VAZIO,
-    SELECIONAR
+    SELECIONAR,
+    MOVER
 }

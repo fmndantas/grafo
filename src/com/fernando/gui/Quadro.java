@@ -25,6 +25,7 @@ public class Quadro extends Emissor implements MouseInputListener {
 
     @Override
     public void mouseMoved(MouseEvent e) {
+        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.MOVIMENTO));
     }
 
     @Override
@@ -34,10 +35,12 @@ public class Quadro extends Emissor implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
+        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.PRESSAO));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
+        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.SOLTURA));
     }
 
     @Override
@@ -52,7 +55,14 @@ public class Quadro extends Emissor implements MouseInputListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         var g2 = (Graphics2D) g;
-        gerenciador.obterFiguras().forEach(x -> g2.draw(x.obterForma()));
+        for (FiguraGui x : gerenciador.obterFiguras()) {
+            if (x.isSelecionado()) {
+                g2.fill(x.obterForma());
+            }
+            else {
+                g2.draw(x.obterForma());
+            }
+        }
     }
 
     protected void atualizarInterface() {
@@ -69,12 +79,15 @@ public class Quadro extends Emissor implements MouseInputListener {
         var botaoSelecionar = new JButton("Selecionar");
         var botaoNo = new JButton("Inserir nó");
         var botaoAresta = new JButton("Inserir aresta");
+        var botaoMover = new JButton("Mover");
         botaoSelecionar.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.SELECIONAR));
         botaoNo.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.INSERIR_NO));
         botaoAresta.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.INSERIR_ARESTA));
+        botaoMover.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.MOVER));
         painelBotoes.add(botaoSelecionar);
         painelBotoes.add(botaoNo);
         painelBotoes.add(botaoAresta);
+        painelBotoes.add(botaoMover);
         gerenciador.setQuadro(quadro);
         var containerExterno = new JPanel();
         containerExterno.add(painelBotoes);
