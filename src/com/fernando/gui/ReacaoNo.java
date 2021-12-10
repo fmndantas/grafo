@@ -10,7 +10,7 @@ public class ReacaoNo extends Reacao {
     }
 
     @Override
-    void executar(EventoGui e) {
+    protected void executarReacao(EventoGui e) {
         if (e.obterTipoEvento() == EventGuiEnum.CLIQUE) {
             status = ReacaoStatusEnum.INICIADO;
             var diametro = 2 * RAIO_PADRAO;
@@ -20,11 +20,9 @@ public class ReacaoNo extends Reacao {
                     diametro,
                     diametro
             );
-            var circulo = new FiguraGui(gerenciador.obterProximoId(), shape, e.obterXy());
-            // circulo.adicionarManipulador(new Manipulador(e.obterXy(), circulo));
+            var circulo = new NoGui(gerenciador.obterProximoId(), shape, e.obterXy());
             gerenciador.adicionarNo(circulo);
             status = ReacaoStatusEnum.FINALIZADO;
-            anularReacao();
         }
     }
 }

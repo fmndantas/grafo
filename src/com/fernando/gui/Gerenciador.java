@@ -7,13 +7,15 @@ import java.util.stream.Collectors;
 public class Gerenciador extends Receptor {
     private Reacao reacao;
     private Quadro quadro;
-    private List<FiguraGui> figuras;
     private Long idAtual = 1L;
     private FiguraGui figuraSelecionada;
+    private List<NoGui> noGuis;
+    private List<ArestaGui> arestaGuis;
 
     Gerenciador() {
-        this.reacao = new ReacaoVazia();
-        this.figuras = new ArrayList<>();
+        this.reacao = new ReacaoVazia(this);
+        this.noGuis = new ArrayList<>();
+        this.arestaGuis = new ArrayList<>();
         this.figuraSelecionada = null;
     }
 
@@ -21,97 +23,89 @@ public class Gerenciador extends Receptor {
         this.quadro = quadro;
     }
 
-    void estabelecerReacao() throws Exception {
-        if (eventoGrafoEnum == EventoGrafoEnum.VAZIO) {
-            throw new Exception("Acao de grafo nao selecionada");
+    void estabelecerReacao() {
+        switch (eventoGrafoEnum) {
+            case INSERIR_ARESTA -> reacao = new ReacaoAresta(this);
+            case INSERIR_NO -> reacao = new ReacaoNo(this);
+            case SELECIONAR -> reacao = new ReacaoSelecao(this);
+            case MOVER -> reacao = new ReacaoMover(this);
         }
-        if (reacao.getClass().equals(ReacaoVazia.class) &&
-                eventoGui.obterTipoEvento() == EventGuiEnum.CLIQUE) {
-            switch (eventoGrafoEnum) {
-                case INSERIR_ARESTA -> reacao = new ReacaoAresta(this);
-                case INSERIR_NO -> reacao = new ReacaoNo(this);
-                case SELECIONAR -> reacao = new ReacaoSelecao(this);
-                case MOVER -> reacao = new ReacaoMover(this);
-            }
-        }
-    }
-
-    void anularReacao() {
-        reacao = new ReacaoVazia();
     }
 
     @Override
     void receberEGui(EventoGui e) {
         super.receberEGui(e);
-        try {
-            estabelecerReacao();
-        } catch (Exception ex) {
-            System.out.println("Não foi possível obter reação. " + ex.getMessage());
-        }
         reacao.executar(e);
     }
 
+    @Override
+    void receberTipoEGrafo(EventoGrafoEnum e) {
+        super.receberTipoEGrafo(e);
+        estabelecerReacao();
+    }
+
+    void adicionarAresta(ArestaGui arestaGui, NoGui inicio, NoGui fim) {
+        this.arestaGuis.add(arestaGui);
+        atualizarQuadro();
+    }
+
+    void adicionarNo(NoGui noGui) {
+        this.noGuis.add(noGui);
+        atualizarQuadro();
+    }
+
+    List<NoGui> obterNos() {
+        return this.noGuis;
+    }
+
+    NoGui obterNoPeloClique(EventoGui e) {
+        var candidatos = this.noGuis
+                .stream()
+                .filter(x -> x.clicouDentro(e))
+                .collect(Collectors.toList());
+        if (candidatos.size() == 1) {
+            return candidatos.get(0);
+        }
+        return null;
+    }
+
     List<FiguraGui> obterFiguras() {
+        var figuras = new ArrayList<FiguraGui>();
+        if (!noGuis.isEmpty())
+            figuras.addAll(noGuis);
+        if (!arestaGuis.isEmpty())
+            figuras.addAll(arestaGuis);
         return figuras;
     }
 
-    void removerFiguraPeloId(Long id) {
-        determinarFiguras(obterFiguras().stream().filter(x -> !x.obterId().equals(id)).collect(Collectors.toList()));
-    }
-
-    void adicionarAresta(FiguraGui aresta) {
-        adicionarFigura(aresta);
-        atualizarQuadro();
-    }
-
-    void adicionarNo(FiguraGui noGrafico) {
-        adicionarFigura(noGrafico);
-        atualizarQuadro();
-    }
-
     void atualizarQuadro() {
-        quadro.atualizarInterface();
-    }
-
-    void mostrarManipuladoresFigura(Long id) {
-        quadro.atualizarInterface();
-    }
-
-    public void esconderManipuladoresFigura(Long id) {
-        quadro.atualizarInterface();
+        quadro.atualizarQuadro();
     }
 
     Long obterProximoId() {
         return idAtual++;
     }
 
-    FiguraGui obterFiguraPeloId(Long id) {
-        return obterFiguras().stream().filter(x -> x.obterId().equals(id)).collect(Collectors.toList()).get(0);
-    }
-
-    FiguraGui obterFiguraPeloXy(XY xy) {
-        var figuras = obterFiguras().stream().filter(x -> x.XyDentro(xy)).collect(Collectors.toList());
-        if (figuras.size() == 0) {
-            return null;
-        }
-        return figuras.get(0);
-    }
-
-    private void determinarFiguras(List<FiguraGui> figuras) {
-        this.figuras = figuras;
-    }
-
-    private void adicionarFigura(FiguraGui figuraGui) {
-        obterFiguras().add(figuraGui);
-    }
-
-    public void selecionarFigura(FiguraGui f) {
+    public void selecionarNo(FiguraGui f) {
         f.selecionarFigura();
         figuraSelecionada = f;
     }
 
-    public void desselecionarFigura(FiguraGui f) {
-        f.desselecionarFigura();
-        figuraSelecionada = null;
+    public void desselecionarNo(NoGui noGui) {
+        noGui.desselecionarFigura();
+    }
+
+    public void desselecionarTudo() {
+        if (figuraSelecionada != null) {
+            figuraSelecionada.desselecionarFigura();
+            figuraSelecionada = null;
+        }
+    }
+
+    public void moverFiguraSelecionada(XY alvoXY) {
+        if (figuraSelecionada != null) {
+            figuraSelecionada.moverAbsoluto(alvoXY);
+        }
+        atualizarQuadro();
     }
 }

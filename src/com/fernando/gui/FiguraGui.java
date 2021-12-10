@@ -1,21 +1,18 @@
 package com.fernando.gui;
 
 import java.awt.*;
-// import java.util.ArrayList;
-// import java.util.List;
+import java.awt.geom.AffineTransform;
 
 public class FiguraGui implements ComForma {
     private Long id;
     private Shape shape;
     private XY centro;
-    // private List<Manipulador> manipuladores;
     private boolean selecionado;
 
     FiguraGui(Long id, Shape shape, XY centro) {
         this.id = id;
         this.shape = shape;
         this.centro = centro;
-        // this.manipuladores = new ArrayList<>();
         this.selecionado = false;
     }
 
@@ -39,16 +36,11 @@ public class FiguraGui implements ComForma {
         return centro;
     }
 
-    // public void adicionarManipulador(Manipulador manipulador) {
-    //    this.manipuladores.add(manipulador);
-    // }
-
-    // public List<Manipulador> obterManipuladores() {
-    //    return this.manipuladores;
-    // }
-
-    public void moverRelativo(XY deltaXY) {
-
+    public void moverAbsoluto(XY alvo) {
+        var tx = new AffineTransform();
+        tx.translate(alvo.obterX() - obterCentro().obterX(), alvo.obterY() - obterCentro().obterY());
+        shape = tx.createTransformedShape(shape);
+        centro = alvo;
     }
 
     public void selecionarFigura() {

@@ -65,7 +65,7 @@ public class Quadro extends Emissor implements MouseInputListener {
         }
     }
 
-    protected void atualizarInterface() {
+    protected void atualizarQuadro() {
         repaint();
     }
 

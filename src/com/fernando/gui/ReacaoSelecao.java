@@ -6,23 +6,18 @@ public class ReacaoSelecao extends Reacao {
     }
 
     @Override
-    void executar(EventoGui e) {
+    protected void executarReacao(EventoGui e) {
         if (e.obterTipoEvento().equals(EventGuiEnum.CLIQUE)) {
             status = ReacaoStatusEnum.INICIADO;
-            for (FiguraGui f : gerenciador.obterFiguras()) {
+            for (NoGui f : gerenciador.obterNos()) {
                 if (f.clicouDentro(e)) {
-                    System.out.println("Selecionou objeto " + f);
-                    this.gerenciador.selecionarFigura(f);
-                }
-                else {
-                    this.gerenciador.desselecionarFigura(f);
+                    this.gerenciador.selecionarNo(f);
+                } else {
+                    this.gerenciador.desselecionarNo(f);
                 }
             }
             status = ReacaoStatusEnum.FINALIZADO;
         }
         this.gerenciador.atualizarQuadro();
-        if (status == ReacaoStatusEnum.FINALIZADO) {
-            anularReacao();
-        }
     }
 }
