@@ -4,26 +4,26 @@ public class XY {
     private int x;
     private int y;
 
-    XY(int x, int y) {
+    public XY(int x, int y) {
         this.x = x;
         this.y = y;
     }
 
-    int obterX() {
+    public int obterX() {
         return this.x;
     }
 
-    int obterY() {
+    public int obterY() {
         return this.y;
     }
 
-    double distancia2(XY outro) {
+    public double distancia2(XY outro) {
         double dx = Math.abs(this.x - outro.obterX());
         double dy = Math.abs(this.y - outro.obterY());
         return dx * dx + dy * dy;
     }
 
-    double distancia(XY outro) {
+    public double distancia(XY outro) {
         return Math.sqrt(distancia2(outro));
     }
 

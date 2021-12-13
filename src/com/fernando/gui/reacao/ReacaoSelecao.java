@@ -1,7 +1,13 @@
-package com.fernando.gui;
+package com.fernando.gui.reacao;
+
+import com.fernando.gui.*;
+import com.fernando.gui.enums.EventGuiEnum;
+import com.fernando.gui.enums.ReacaoStatusEnum;
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.grafico.NoGui;
 
 public class ReacaoSelecao extends Reacao {
-    ReacaoSelecao(Gerenciador gerenciador) {
+    public ReacaoSelecao(Gerenciador gerenciador) {
         super(gerenciador);
     }
 

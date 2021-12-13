@@ -1,5 +1,13 @@
 package com.fernando.gui;
 
+import com.fernando.gui.enums.EventoGrafoEnum;
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.grafico.ArestaGui;
+import com.fernando.gui.grafico.FiguraGui;
+import com.fernando.gui.grafico.NoGui;
+import com.fernando.gui.observer.Receptor;
+import com.fernando.gui.reacao.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,7 +20,7 @@ public class Gerenciador extends Receptor {
     private List<NoGui> noGuis;
     private List<ArestaGui> arestaGuis;
 
-    Gerenciador() {
+    public Gerenciador() {
         this.reacao = new ReacaoVazia(this);
         this.noGuis = new ArrayList<>();
         this.arestaGuis = new ArrayList<>();
@@ -23,7 +31,7 @@ public class Gerenciador extends Receptor {
         this.quadro = quadro;
     }
 
-    void estabelecerReacao() {
+    public void estabelecerReacao() {
         switch (eventoGrafoEnum) {
             case INSERIR_ARESTA -> reacao = new ReacaoAresta(this);
             case INSERIR_NO -> reacao = new ReacaoNo(this);
@@ -33,30 +41,30 @@ public class Gerenciador extends Receptor {
     }
 
     @Override
-    void receberEGui(EventoGui e) {
+    public void receberEGui(EventoGui e) {
         super.receberEGui(e);
         reacao.executar(e);
     }
 
     @Override
-    void receberTipoEGrafo(EventoGrafoEnum e) {
+    public void receberTipoEGrafo(EventoGrafoEnum e) {
         super.receberTipoEGrafo(e);
         estabelecerReacao();
     }
 
-    void adicionarAresta(ArestaGui arestaGui) {
+    public void adicionarAresta(ArestaGui arestaGui) {
         this.arestaGuis.add(arestaGui);
     }
 
-    void adicionarNo(NoGui noGui) {
+    public void adicionarNo(NoGui noGui) {
         this.noGuis.add(noGui);
     }
 
-    List<NoGui> obterNos() {
+    public List<NoGui> obterNos() {
         return this.noGuis;
     }
 
-    NoGui obterNoPeloClique(EventoGui e) {
+    public NoGui obterNoPeloClique(EventoGui e) {
         var candidatos = this.noGuis
                 .stream()
                 .filter(x -> x.clicouDentro(e))
@@ -67,7 +75,7 @@ public class Gerenciador extends Receptor {
         return null;
     }
 
-    List<FiguraGui> obterFiguras() {
+    public List<FiguraGui> obterFiguras() {
         var figuras = new ArrayList<FiguraGui>();
         if (!noGuis.isEmpty())
             figuras.addAll(noGuis);
@@ -76,11 +84,11 @@ public class Gerenciador extends Receptor {
         return figuras;
     }
 
-    void atualizarQuadro() {
+    public void atualizarQuadro() {
         quadro.atualizarQuadro();
     }
 
-    Long obterProximoId() {
+    public Long obterProximoId() {
         return idAtual++;
     }
 

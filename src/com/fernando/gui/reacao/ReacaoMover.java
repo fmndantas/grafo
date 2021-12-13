@@ -1,9 +1,14 @@
-package com.fernando.gui;
+package com.fernando.gui.reacao;
+
+import com.fernando.gui.*;
+import com.fernando.gui.enums.EventGuiEnum;
+import com.fernando.gui.enums.ReacaoStatusEnum;
+import com.fernando.gui.evento.EventoGui;
 
 public class ReacaoMover extends Reacao {
     private XY inicio;
 
-    ReacaoMover(Gerenciador gerenciador) {
+    public ReacaoMover(Gerenciador gerenciador) {
         super(gerenciador);
         this.inicio = new XY(-1, -1);
     }

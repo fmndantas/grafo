@@ -1,13 +1,16 @@
-package com.fernando.gui;
+package com.fernando.gui.grafico;
+
+import com.fernando.gui.XY;
+import com.fernando.gui.grafico.FiguraGui;
 
 import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class ArestaGui extends FiguraGui {
-    FiguraGui inicio;
-    FiguraGui fim;
+    private FiguraGui inicio;
+    private FiguraGui fim;
 
-    ArestaGui(Long id, Shape shape, XY centro, FiguraGui inicio, FiguraGui fim) {
+    public ArestaGui(Long id, Shape shape, XY centro, FiguraGui inicio, FiguraGui fim) {
         super(id, shape, centro);
         this.inicio = inicio;
         this.fim = fim;

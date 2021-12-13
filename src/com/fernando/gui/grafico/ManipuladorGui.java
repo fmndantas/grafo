@@ -1,16 +1,19 @@
-package com.fernando.gui;
+package com.fernando.gui.grafico;
+
+import com.fernando.gui.XY;
+import com.fernando.gui.grafico.FiguraGui;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Manipulador {
+public class ManipuladorGui {
     private int RAIO_MANIPULADOR = 5;
 
     private FiguraGui figuraManipulada;
     private Shape shape;
     private boolean ativo;
 
-    Manipulador(XY centro, FiguraGui figuraManipulada) {
+    ManipuladorGui(XY centro, FiguraGui figuraManipulada) {
         this.ativo = false;
         this.figuraManipulada = figuraManipulada;
         this.shape = new Ellipse2D.Float(

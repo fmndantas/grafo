@@ -1,4 +1,7 @@
-package com.fernando.gui;
+package com.fernando.gui.grafico.builder;
+
+import com.fernando.gui.XY;
+import com.fernando.gui.grafico.NoGui;
 
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
@@ -9,14 +12,14 @@ public class NoGuiBuilder {
     private Shape forma = null;
     private int raio = 20;
 
-    NoGuiBuilder() {
+    public NoGuiBuilder() {
     }
 
-    void setarId(Long id) {
+    public void setarId(Long id) {
         this.id = id;
     }
 
-    void construirForma(XY centro) {
+    public void construirForma(XY centro) {
         this.centro = centro;
         this.forma = new Ellipse2D.Float(
                 centro.obterX() - raio,
@@ -26,17 +29,17 @@ public class NoGuiBuilder {
         );
     }
 
-    void setarRaio(int raio) {
+    public void setarRaio(int raio) {
         this.raio = raio;
     }
 
-    void resetarParametros() {
+    public void resetarParametros() {
         id = -1L;
         forma = null;
         centro = new XY(-1, -1);
     }
 
-    NoGui obterResultado() {
+    public NoGui obterResultado() {
         var noGui = new NoGui(id, forma, centro);
         resetarParametros();
         return noGui;

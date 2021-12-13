@@ -1,10 +1,14 @@
-package com.fernando.gui;
+package com.fernando.gui.reacao;
+
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.Gerenciador;
+import com.fernando.gui.enums.ReacaoStatusEnum;
 
 public abstract class Reacao {
     protected Gerenciador gerenciador;
     protected ReacaoStatusEnum status;
 
-    Reacao(Gerenciador gerenciador) {
+    public Reacao(Gerenciador gerenciador) {
         System.out.println("Iniciou " + this.getClass().getSimpleName());
         this.gerenciador = gerenciador;
         this.status = ReacaoStatusEnum.CRIADO;

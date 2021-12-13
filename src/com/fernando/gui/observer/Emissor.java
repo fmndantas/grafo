@@ -1,4 +1,7 @@
-package com.fernando.gui;
+package com.fernando.gui.observer;
+
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.enums.EventoGrafoEnum;
 
 import javax.swing.*;
 import java.awt.*;
@@ -6,9 +9,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Emissor extends JPanel {
-    List<Receptor> receptores = new ArrayList<>();
+    private List<Receptor> receptores = new ArrayList<>();
 
-    Emissor(GridLayout layout) {
+    public Emissor(GridLayout layout) {
         super(layout);
     }
 

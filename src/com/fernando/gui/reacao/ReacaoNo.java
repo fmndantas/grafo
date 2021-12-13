@@ -1,9 +1,15 @@
-package com.fernando.gui;
+package com.fernando.gui.reacao;
+
+import com.fernando.gui.*;
+import com.fernando.gui.enums.EventGuiEnum;
+import com.fernando.gui.enums.ReacaoStatusEnum;
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.grafico.builder.NoGuiBuilder;
 
 public class ReacaoNo extends Reacao {
     protected int RAIO_PADRAO = 25;
 
-    ReacaoNo(Gerenciador gerenciador) {
+    public ReacaoNo(Gerenciador gerenciador) {
         super(gerenciador);
     }
 

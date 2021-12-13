@@ -1,22 +1,24 @@
-package com.fernando.gui;
+package com.fernando.gui.grafico;
+
+import com.fernando.gui.XY;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.util.HashSet;
 
 public class NoGui extends FiguraGui {
-    HashSet<ArestaGui> arestas;
+    private HashSet<ArestaGui> arestas;
 
-    NoGui(Long id, Shape shape, XY centro) {
+    public NoGui(Long id, Shape shape, XY centro) {
         super(id, shape, centro);
         arestas = new HashSet<>();
     }
 
-    void adicionarAresta(ArestaGui aresta) {
+    public void adicionarAresta(ArestaGui aresta) {
         arestas.add(aresta);
     }
 
-    HashSet<ArestaGui> obterArestas() {
+    public HashSet<ArestaGui> obterArestas() {
         return arestas;
     }
 

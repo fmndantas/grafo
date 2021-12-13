@@ -1,5 +1,11 @@
 package com.fernando.gui;
 
+import com.fernando.gui.enums.EventGuiEnum;
+import com.fernando.gui.enums.EventoGrafoEnum;
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.grafico.FiguraGui;
+import com.fernando.gui.observer.Emissor;
+
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
 import java.awt.*;
@@ -69,7 +75,7 @@ public class Quadro extends Emissor implements MouseInputListener {
         repaint();
     }
 
-    static void createAndShowGUI() {
+    public static void createAndShowGUI() {
         var moldura = new JFrame("Quadro");
         moldura.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         var gerenciador = new Gerenciador();

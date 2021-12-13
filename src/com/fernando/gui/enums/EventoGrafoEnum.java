@@ -1,4 +1,4 @@
-package com.fernando.gui;
+package com.fernando.gui.enums;
 
 public enum EventoGrafoEnum {
     INSERIR_ARESTA,

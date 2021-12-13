@@ -1,4 +1,7 @@
-package com.fernando.gui;
+package com.fernando.gui.grafico;
+
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.XY;
 
 import java.awt.*;
 
@@ -8,7 +11,7 @@ public abstract class FiguraGui {
     private XY centro;
     private boolean selecionado;
 
-    FiguraGui(Long id, Shape shape, XY centro) {
+    public FiguraGui(Long id, Shape shape, XY centro) {
         this.id = id;
         this.shape = shape;
         this.centro = centro;
@@ -23,7 +26,7 @@ public abstract class FiguraGui {
         this.shape = forma;
     }
 
-    Long obterId() {
+    public Long obterId() {
         return id;
     }
 
@@ -31,11 +34,11 @@ public abstract class FiguraGui {
         this.id = id;
     }
 
-    boolean clicouDentro(EventoGui clique) {
+    public boolean clicouDentro(EventoGui clique) {
         return XyDentro(clique.obterXy());
     }
 
-    boolean XyDentro(XY xy) {
+    public boolean XyDentro(XY xy) {
         return shape.contains(xy.obterX(), xy.obterY());
     }
 
@@ -47,7 +50,7 @@ public abstract class FiguraGui {
         this.centro = centro;
     }
 
-    protected void moverAbsoluto(XY alvo) {
+    public void moverAbsoluto(XY alvo) {
 
     }
 

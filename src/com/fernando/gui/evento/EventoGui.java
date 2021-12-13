@@ -1,5 +1,9 @@
-package com.fernando.gui;
+package com.fernando.gui.evento;
 
+import com.fernando.gui.XY;
+import com.fernando.gui.enums.EventGuiEnum;
+
+// todo construir os outros eventos
 public class EventoGui {
     private XY xy;
     private EventGuiEnum tipoEvento;
@@ -9,19 +13,19 @@ public class EventoGui {
         this.tipoEvento = tipoEvento;
     }
 
-    XY obterXy() {
+    public XY obterXy() {
         return this.xy;
     }
 
-    int obterX() {
+    public int obterX() {
         return obterXy().obterX();
     }
 
-    int obterY() {
+    public int obterY() {
         return obterXy().obterY();
     }
 
-    EventGuiEnum obterTipoEvento() {
+    public EventGuiEnum obterTipoEvento() {
         return this.tipoEvento;
     }
 }

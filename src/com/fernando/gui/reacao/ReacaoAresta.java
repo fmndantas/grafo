@@ -1,4 +1,11 @@
-package com.fernando.gui;
+package com.fernando.gui.reacao;
+
+import com.fernando.gui.*;
+import com.fernando.gui.enums.EventGuiEnum;
+import com.fernando.gui.enums.ReacaoStatusEnum;
+import com.fernando.gui.evento.EventoGui;
+import com.fernando.gui.grafico.ArestaGui;
+import com.fernando.gui.grafico.NoGui;
 
 import java.awt.geom.Line2D;
 
@@ -6,7 +13,7 @@ public class ReacaoAresta extends Reacao {
     NoGui inicio;
     NoGui fim;
 
-    ReacaoAresta(Gerenciador gerenciador) {
+    public ReacaoAresta(Gerenciador gerenciador) {
         super(gerenciador);
     }
 
