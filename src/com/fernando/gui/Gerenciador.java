@@ -44,14 +44,12 @@ public class Gerenciador extends Receptor {
         estabelecerReacao();
     }
 
-    void adicionarAresta(ArestaGui arestaGui, NoGui inicio, NoGui fim) {
+    void adicionarAresta(ArestaGui arestaGui) {
         this.arestaGuis.add(arestaGui);
-        atualizarQuadro();
     }
 
     void adicionarNo(NoGui noGui) {
         this.noGuis.add(noGui);
-        atualizarQuadro();
     }
 
     List<NoGui> obterNos() {
@@ -106,6 +104,5 @@ public class Gerenciador extends Receptor {
         if (figuraSelecionada != null) {
             figuraSelecionada.moverAbsoluto(alvoXY);
         }
-        atualizarQuadro();
     }
 }

@@ -35,12 +35,12 @@ public class Quadro extends Emissor implements MouseInputListener {
 
     @Override
     public void mousePressed(MouseEvent e) {
-        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.PRESSAO));
+        // emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.PRESSAO));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.SOLTURA));
+        // emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.SOLTURA));
     }
 
     @Override

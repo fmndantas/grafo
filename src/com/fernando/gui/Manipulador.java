@@ -3,7 +3,7 @@ package com.fernando.gui;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class Manipulador implements ComForma {
+public class Manipulador {
     private int RAIO_MANIPULADOR = 5;
 
     private FiguraGui figuraManipulada;

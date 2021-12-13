@@ -1,9 +1,8 @@
 package com.fernando.gui;
 
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 
-public class FiguraGui implements ComForma {
+public abstract class FiguraGui {
     private Long id;
     private Shape shape;
     private XY centro;
@@ -20,12 +19,20 @@ public class FiguraGui implements ComForma {
         return shape;
     }
 
+    public void determinarForma(Shape forma) {
+        this.shape = forma;
+    }
+
     Long obterId() {
         return id;
     }
 
+    public void determinarId(Long id) {
+        this.id = id;
+    }
+
     boolean clicouDentro(EventoGui clique) {
-        return shape.contains(clique.obterX(), clique.obterY());
+        return XyDentro(clique.obterXy());
     }
 
     boolean XyDentro(XY xy) {
@@ -36,11 +43,12 @@ public class FiguraGui implements ComForma {
         return centro;
     }
 
-    public void moverAbsoluto(XY alvo) {
-        var tx = new AffineTransform();
-        tx.translate(alvo.obterX() - obterCentro().obterX(), alvo.obterY() - obterCentro().obterY());
-        shape = tx.createTransformedShape(shape);
-        centro = alvo;
+    public void determinarCentro(XY centro) {
+        this.centro = centro;
+    }
+
+    protected void moverAbsoluto(XY alvo) {
+
     }
 
     public void selecionarFigura() {

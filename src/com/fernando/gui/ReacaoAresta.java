@@ -18,6 +18,7 @@ public class ReacaoAresta extends Reacao {
                 if (no != null) {
                     status = ReacaoStatusEnum.INICIADO;
                     inicio = no;
+                    System.out.println("Selecionou inicio como " + no);
                 }
             } else {
                 var no = gerenciador.obterNoPeloClique(e);
@@ -29,11 +30,26 @@ public class ReacaoAresta extends Reacao {
                             fim.obterCentro().obterX(),
                             fim.obterCentro().obterY()
                     );
-                    var arestaGui = new ArestaGui(gerenciador.obterProximoId(), linha, new XY(-1, -1));
-                    gerenciador.adicionarAresta(arestaGui, inicio, fim);
+                    var arestaGui = new ArestaGui(
+                            gerenciador.obterProximoId(),
+                            linha,
+                            new XY(-1, -1),
+                            inicio,
+                            fim
+                    );
+                    inicio.adicionarAresta(arestaGui);
+                    fim.adicionarAresta(arestaGui);
+                    gerenciador.adicionarAresta(arestaGui);
                     status = ReacaoStatusEnum.FINALIZADO;
+                    System.out.println("Selecionou fim como " + no);
                 }
             }
         }
+    }
+
+    @Override
+    protected void executarDepoisReacao(EventoGui e) {
+        super.executarDepoisReacao(e);
+        gerenciador.atualizarQuadro();
     }
 }
