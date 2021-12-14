@@ -28,10 +28,6 @@ public abstract class FiguraGui {
         return id;
     }
 
-    public void determinarId(Long id) {
-        this.id = id;
-    }
-
     public boolean clicouDentro(EventoGui clique) {
         return XyDentro(clique.obterXy());
     }
@@ -55,6 +51,8 @@ public abstract class FiguraGui {
     public boolean isSelecionado() {
         return selecionado;
     }
+
+    public abstract void renderizar(Graphics2D g2);
 
     @Override
     public String toString() {

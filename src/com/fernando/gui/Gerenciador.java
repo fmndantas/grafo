@@ -56,6 +56,10 @@ public class Gerenciador extends Receptor {
         this.arestaGuis.add(arestaGui);
     }
 
+    public List<ArestaGui> obterArestas() {
+        return this.arestaGuis;
+    }
+
     public void adicionarNo(NoGui noGui) {
         this.noGuis.add(noGui);
     }

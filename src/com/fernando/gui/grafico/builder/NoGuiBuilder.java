@@ -33,7 +33,7 @@ public class NoGuiBuilder {
         this.raio = raio;
     }
 
-    public void resetarParametros() {
+    private void resetarParametros() {
         id = -1L;
         forma = null;
         centro = new XY(-1, -1);

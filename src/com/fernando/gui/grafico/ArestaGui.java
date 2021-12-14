@@ -23,4 +23,10 @@ public class ArestaGui extends FiguraGui {
                 )
         );
     }
+
+    @Override
+    public void renderizar(Graphics2D g2) {
+        g2.setColor(Color.BLACK);
+        g2.draw(obterForma());
+    }
 }

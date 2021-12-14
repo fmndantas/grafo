@@ -4,10 +4,8 @@ import com.fernando.gui.*;
 import com.fernando.gui.enums.EventGuiEnum;
 import com.fernando.gui.enums.ReacaoStatusEnum;
 import com.fernando.gui.evento.EventoGui;
-import com.fernando.gui.grafico.ArestaGui;
 import com.fernando.gui.grafico.NoGui;
-
-import java.awt.geom.Line2D;
+import com.fernando.gui.grafico.builder.ArestaGuiBuilder;
 
 public class ReacaoAresta extends Reacao {
     NoGui inicio;
@@ -30,21 +28,10 @@ public class ReacaoAresta extends Reacao {
                 var no = gerenciador.obterNoPeloClique(e);
                 if (no != null) {
                     fim = no;
-                    var linha = new Line2D.Float(
-                            inicio.obterCentro().obterX(),
-                            inicio.obterCentro().obterY(),
-                            fim.obterCentro().obterX(),
-                            fim.obterCentro().obterY()
-                    );
-                    var arestaGui = new ArestaGui(
-                            gerenciador.obterProximoId(),
-                            linha,
-                            inicio,
-                            fim
-                    );
-                    inicio.adicionarAresta(arestaGui);
-                    fim.adicionarAresta(arestaGui);
-                    gerenciador.adicionarAresta(arestaGui);
+                    var arestaGuiBuilder = new ArestaGuiBuilder();
+                    arestaGuiBuilder.setarId(gerenciador.obterProximoId());
+                    arestaGuiBuilder.construirForma(inicio, fim);
+                    gerenciador.adicionarAresta(arestaGuiBuilder.obterResultado());
                     status = ReacaoStatusEnum.FINALIZADO;
                 }
             }

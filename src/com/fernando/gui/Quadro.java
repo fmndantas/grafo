@@ -63,13 +63,11 @@ public class Quadro extends Emissor implements MouseInputListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         var g2 = (Graphics2D) g;
-        for (FiguraGui x : gerenciador.obterFiguras()) {
-            if (x.isSelecionado()) {
-                g2.fill(x.obterForma());
-            }
-            else {
-                g2.draw(x.obterForma());
-            }
+        for (FiguraGui x : gerenciador.obterArestas()) {
+            x.renderizar(g2);
+        }
+        for (FiguraGui x : gerenciador.obterNos()) {
+            x.renderizar(g2);
         }
     }
 

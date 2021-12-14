@@ -18,8 +18,7 @@ public class ReacaoNo extends Reacao {
             var noGuiBuilder = new NoGuiBuilder();
             noGuiBuilder.setarId(gerenciador.obterProximoId());
             noGuiBuilder.construirForma(e.obterXy());
-            var noGui = noGuiBuilder.obterResultado();
-            gerenciador.adicionarNo(noGui);
+            gerenciador.adicionarNo(noGuiBuilder.obterResultado());
             status = ReacaoStatusEnum.FINALIZADO;
         }
     }

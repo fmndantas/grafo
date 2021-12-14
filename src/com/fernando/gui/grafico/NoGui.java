@@ -53,4 +53,17 @@ public class NoGui extends FiguraGui {
             a.moverPelosNosExtremos();
         }
     }
+
+    @Override
+    public void renderizar(Graphics2D g2) {
+        if (isSelecionado()) {
+            g2.setColor(Color.GRAY);
+        }
+        else {
+            g2.setColor(Color.WHITE);
+        }
+        g2.fill(obterForma());
+        g2.setColor(Color.BLACK);
+        g2.draw(obterForma());
+    }
 }

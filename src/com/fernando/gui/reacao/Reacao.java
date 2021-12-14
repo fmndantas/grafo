@@ -37,7 +37,12 @@ public abstract class Reacao {
         var worker = new SwingWorker<Void, Void>() {
             @Override
             protected Void doInBackground() {
-                executar(e);
+                try {
+                    executar(e);
+                }
+                catch (Exception ex) {
+                    ex.printStackTrace();
+                }
                 return null;
             }
         };
