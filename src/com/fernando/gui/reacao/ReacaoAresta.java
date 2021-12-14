@@ -19,13 +19,12 @@ public class ReacaoAresta extends Reacao {
 
     @Override
     protected void executarReacao(EventoGui e) {
-        if (e.obterTipoEvento() == EventGuiEnum.CLIQUE) {
+        if (e.obterTipoEvento().equals(EventGuiEnum.PRESSAO)) {
             if (status == ReacaoStatusEnum.CRIADO) {
                 var no = gerenciador.obterNoPeloClique(e);
                 if (no != null) {
                     status = ReacaoStatusEnum.INICIADO;
                     inicio = no;
-                    // System.out.println("Selecionou inicio como " + no);
                 }
             } else {
                 var no = gerenciador.obterNoPeloClique(e);
@@ -47,7 +46,6 @@ public class ReacaoAresta extends Reacao {
                     fim.adicionarAresta(arestaGui);
                     gerenciador.adicionarAresta(arestaGui);
                     status = ReacaoStatusEnum.FINALIZADO;
-                    // System.out.println("Selecionou fim como " + no);
                 }
             }
         }

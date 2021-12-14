@@ -13,7 +13,7 @@ public class ReacaoNo extends Reacao {
 
     @Override
     protected void executarReacao(EventoGui e) {
-        if (e.obterTipoEvento() == EventGuiEnum.CLIQUE) {
+        if (e.obterTipoEvento().equals(EventGuiEnum.PRESSAO)) {
             status = ReacaoStatusEnum.INICIADO;
             var noGuiBuilder = new NoGuiBuilder();
             noGuiBuilder.setarId(gerenciador.obterProximoId());
@@ -21,7 +21,6 @@ public class ReacaoNo extends Reacao {
             var noGui = noGuiBuilder.obterResultado();
             gerenciador.adicionarNo(noGui);
             status = ReacaoStatusEnum.FINALIZADO;
-            // System.out.println("Criou no em " + noGui.obterCentro());
         }
     }
 

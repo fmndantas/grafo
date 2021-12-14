@@ -4,12 +4,13 @@ import com.fernando.gui.evento.EventoGui;
 import com.fernando.gui.Gerenciador;
 import com.fernando.gui.enums.ReacaoStatusEnum;
 
+import javax.swing.*;
+
 public abstract class Reacao {
     protected Gerenciador gerenciador;
     protected ReacaoStatusEnum status;
 
     public Reacao(Gerenciador gerenciador) {
-        // System.out.println("Iniciou " + this.getClass().getSimpleName());
         this.gerenciador = gerenciador;
         this.status = ReacaoStatusEnum.CRIADO;
     }
@@ -28,9 +29,19 @@ public abstract class Reacao {
 
     protected void executarDepoisReacao(EventoGui e) {
         if (status == ReacaoStatusEnum.FINALIZADO) {
-            // System.out.println("Finalizou " + this.getClass().getSimpleName());
             renovarReacao();
         }
+    }
+
+    public void executarReacaoBackground(EventoGui e) {
+        var worker = new SwingWorker<Void, Void>() {
+            @Override
+            protected Void doInBackground() {
+                executar(e);
+                return null;
+            }
+        };
+        worker.execute();
     }
 
     void renovarReacao() {

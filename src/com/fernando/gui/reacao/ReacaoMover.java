@@ -15,7 +15,7 @@ public class ReacaoMover extends Reacao {
 
     @Override
     protected void executarReacao(EventoGui e) {
-        if (e.obterTipoEvento().equals(EventGuiEnum.CLIQUE)) {
+        if (e.obterTipoEvento().equals(EventGuiEnum.PRESSAO)) {
             if (status == ReacaoStatusEnum.CRIADO) {
                 status = ReacaoStatusEnum.INICIADO;
                 inicio = e.obterXy();

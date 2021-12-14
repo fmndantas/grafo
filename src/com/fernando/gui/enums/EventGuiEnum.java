@@ -5,5 +5,6 @@ public enum EventGuiEnum {
     MOVIMENTO,
     PRESSAO,
     SOLTURA,
-    VAZIO
+    VAZIO,
+    ARRASTO
 }

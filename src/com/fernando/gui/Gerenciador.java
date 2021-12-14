@@ -43,7 +43,7 @@ public class Gerenciador extends Receptor {
     @Override
     public void receberEGui(EventoGui e) {
         super.receberEGui(e);
-        reacao.executar(e);
+        reacao.executarReacaoBackground(e);
     }
 
     @Override

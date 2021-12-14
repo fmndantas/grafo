@@ -13,12 +13,11 @@ public class ReacaoSelecao extends Reacao {
 
     @Override
     protected void executarReacao(EventoGui e) {
-        if (e.obterTipoEvento().equals(EventGuiEnum.CLIQUE)) {
+        if (e.obterTipoEvento().equals(EventGuiEnum.PRESSAO)) {
             status = ReacaoStatusEnum.INICIADO;
             for (NoGui f : gerenciador.obterNos()) {
                 if (f.clicouDentro(e)) {
                     this.gerenciador.selecionarNo(f);
-                    // System.out.println("Selecionou no " + f);
                 } else {
                     this.gerenciador.desselecionarNo(f);
                 }
