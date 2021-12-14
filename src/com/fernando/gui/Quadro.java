@@ -22,6 +22,7 @@ public class Quadro extends Emissor implements MouseInputListener {
         setPreferredSize(new Dimension(450, 450));
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
+        setBackground(Color.WHITE);
         this.gerenciador = gerenciador;
     }
 

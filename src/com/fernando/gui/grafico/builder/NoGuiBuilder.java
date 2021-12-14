@@ -10,7 +10,7 @@ public class NoGuiBuilder {
     private Long id = -1L;
     private XY centro = new XY(-1, -1);
     private Shape forma = null;
-    private int raio = 20;
+    private int raio = 10;
 
     public NoGuiBuilder() {
     }

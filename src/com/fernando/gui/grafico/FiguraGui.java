@@ -8,13 +8,11 @@ import java.awt.*;
 public abstract class FiguraGui {
     private Long id;
     private Shape shape;
-    private XY centro;
     private boolean selecionado;
 
-    public FiguraGui(Long id, Shape shape, XY centro) {
+    public FiguraGui(Long id, Shape shape) {
         this.id = id;
         this.shape = shape;
-        this.centro = centro;
         this.selecionado = false;
     }
 
@@ -38,16 +36,8 @@ public abstract class FiguraGui {
         return XyDentro(clique.obterXy());
     }
 
-    public boolean XyDentro(XY xy) {
+    private boolean XyDentro(XY xy) {
         return shape.contains(xy.obterX(), xy.obterY());
-    }
-
-    public XY obterCentro() {
-        return centro;
-    }
-
-    public void determinarCentro(XY centro) {
-        this.centro = centro;
     }
 
     public void moverAbsoluto(XY alvo) {
@@ -68,6 +58,6 @@ public abstract class FiguraGui {
 
     @Override
     public String toString() {
-        return "FiguraGui[Id=" + obterId() + ", " + obterCentro() + "]";
+        return "FiguraGui[Id=" + obterId() + ", ]";
     }
 }

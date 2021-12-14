@@ -7,8 +7,6 @@ import com.fernando.gui.evento.EventoGui;
 import com.fernando.gui.grafico.builder.NoGuiBuilder;
 
 public class ReacaoNo extends Reacao {
-    protected int RAIO_PADRAO = 25;
-
     public ReacaoNo(Gerenciador gerenciador) {
         super(gerenciador);
     }
@@ -23,7 +21,7 @@ public class ReacaoNo extends Reacao {
             var noGui = noGuiBuilder.obterResultado();
             gerenciador.adicionarNo(noGui);
             status = ReacaoStatusEnum.FINALIZADO;
-            System.out.println("Criou no em " + noGui.obterCentro());
+            // System.out.println("Criou no em " + noGui.obterCentro());
         }
     }
 

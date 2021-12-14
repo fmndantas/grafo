@@ -8,10 +8,12 @@ import java.util.HashSet;
 
 public class NoGui extends FiguraGui {
     private HashSet<ArestaGui> arestas;
+    private XY centro;
 
     public NoGui(Long id, Shape shape, XY centro) {
-        super(id, shape, centro);
-        arestas = new HashSet<>();
+        super(id, shape);
+        this.arestas = new HashSet<>();
+        this.centro = centro;
     }
 
     public void adicionarAresta(ArestaGui aresta) {
@@ -20,6 +22,22 @@ public class NoGui extends FiguraGui {
 
     public HashSet<ArestaGui> obterArestas() {
         return arestas;
+    }
+
+    public XY obterCentro() {
+        return centro;
+    }
+
+    public void determinarCentro(XY centro) {
+        this.centro = centro;
+    }
+
+    public int obterX() {
+        return obterCentro().obterX();
+    }
+
+    public int obterY() {
+        return obterCentro().obterY();
     }
 
     @Override

@@ -9,7 +9,7 @@ public abstract class Reacao {
     protected ReacaoStatusEnum status;
 
     public Reacao(Gerenciador gerenciador) {
-        System.out.println("Iniciou " + this.getClass().getSimpleName());
+        // System.out.println("Iniciou " + this.getClass().getSimpleName());
         this.gerenciador = gerenciador;
         this.status = ReacaoStatusEnum.CRIADO;
     }
@@ -28,8 +28,8 @@ public abstract class Reacao {
 
     protected void executarDepoisReacao(EventoGui e) {
         if (status == ReacaoStatusEnum.FINALIZADO) {
+            // System.out.println("Finalizou " + this.getClass().getSimpleName());
             renovarReacao();
-            System.out.println("Finalizou " + this.getClass().getSimpleName());
         }
     }
 

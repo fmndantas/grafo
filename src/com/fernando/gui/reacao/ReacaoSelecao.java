@@ -18,7 +18,7 @@ public class ReacaoSelecao extends Reacao {
             for (NoGui f : gerenciador.obterNos()) {
                 if (f.clicouDentro(e)) {
                     this.gerenciador.selecionarNo(f);
-                    System.out.println("Selecionou no " + f);
+                    // System.out.println("Selecionou no " + f);
                 } else {
                     this.gerenciador.desselecionarNo(f);
                 }
