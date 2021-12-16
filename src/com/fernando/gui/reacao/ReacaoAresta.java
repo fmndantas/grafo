@@ -37,10 +37,4 @@ public class ReacaoAresta extends Reacao {
             }
         }
     }
-
-    @Override
-    protected void executarDepoisReacao(EventoGui e) {
-        super.executarDepoisReacao(e);
-        gerenciador.atualizarQuadro();
-    }
 }

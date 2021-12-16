@@ -22,10 +22,4 @@ public class ReacaoNo extends Reacao {
             status = ReacaoStatusEnum.FINALIZADO;
         }
     }
-
-    @Override
-    protected void executarDepoisReacao(EventoGui e) {
-        super.executarDepoisReacao(e);
-        gerenciador.atualizarQuadro();
-    }
 }

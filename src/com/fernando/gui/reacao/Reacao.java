@@ -28,6 +28,7 @@ public abstract class Reacao {
     }
 
     protected void executarDepoisReacao(EventoGui e) {
+        gerenciador.atualizarQuadro();
         if (status == ReacaoStatusEnum.FINALIZADO) {
             renovarReacao();
         }

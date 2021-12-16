@@ -31,10 +31,4 @@ public class ReacaoMover extends Reacao {
             }
         }
     }
-
-    @Override
-    protected void executarDepoisReacao(EventoGui e) {
-        super.executarDepoisReacao(e);
-        gerenciador.atualizarQuadro();
-    }
 }
