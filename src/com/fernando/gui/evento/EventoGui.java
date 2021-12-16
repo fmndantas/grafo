@@ -1,6 +1,6 @@
 package com.fernando.gui.evento;
 
-import com.fernando.gui.XY;
+import com.fernando.gui.utils.XY;
 import com.fernando.gui.enums.EventGuiEnum;
 
 // todo construir os outros eventos

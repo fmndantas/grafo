@@ -1,6 +1,6 @@
 package com.fernando.gui.grafico;
 
-import com.fernando.gui.XY;
+import com.fernando.gui.utils.XY;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;

@@ -1,6 +1,6 @@
 package com.fernando.gui.grafico.builder;
 
-import com.fernando.gui.XY;
+import com.fernando.gui.utils.XY;
 import com.fernando.gui.grafico.NoGui;
 
 import java.awt.*;
@@ -10,7 +10,7 @@ public class NoGuiBuilder {
     private Long id = -1L;
     private XY centro = new XY(-1, -1);
     private Shape forma = null;
-    private int raio = 10;
+    private int raio = 20;
 
     public NoGuiBuilder() {
     }

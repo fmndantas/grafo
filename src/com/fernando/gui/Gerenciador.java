@@ -7,6 +7,7 @@ import com.fernando.gui.grafico.FiguraGui;
 import com.fernando.gui.grafico.NoGui;
 import com.fernando.gui.observer.Receptor;
 import com.fernando.gui.reacao.*;
+import com.fernando.gui.utils.XY;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,15 +80,6 @@ public class Gerenciador extends Receptor {
         return null;
     }
 
-    public List<FiguraGui> obterFiguras() {
-        var figuras = new ArrayList<FiguraGui>();
-        if (!noGuis.isEmpty())
-            figuras.addAll(noGuis);
-        if (!arestaGuis.isEmpty())
-            figuras.addAll(arestaGuis);
-        return figuras;
-    }
-
     public void atualizarQuadro() {
         quadro.atualizarQuadro();
     }
@@ -103,11 +95,7 @@ public class Gerenciador extends Receptor {
 
     public void desselecionarNo(NoGui noGui) {
         noGui.desselecionarFigura();
-    }
-
-    public void desselecionarTudo() {
-        if (figuraSelecionada != null) {
-            figuraSelecionada.desselecionarFigura();
+        if (noGui.equals(figuraSelecionada)) {
             figuraSelecionada = null;
         }
     }

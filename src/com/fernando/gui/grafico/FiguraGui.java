@@ -1,7 +1,7 @@
 package com.fernando.gui.grafico;
 
 import com.fernando.gui.evento.EventoGui;
-import com.fernando.gui.XY;
+import com.fernando.gui.utils.XY;
 
 import java.awt.*;
 

@@ -5,6 +5,7 @@ import com.fernando.gui.enums.EventoGrafoEnum;
 import com.fernando.gui.evento.EventoGui;
 import com.fernando.gui.grafico.FiguraGui;
 import com.fernando.gui.observer.Emissor;
+import com.fernando.gui.utils.XY;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputListener;
@@ -20,7 +21,6 @@ public class Quadro extends Emissor implements MouseInputListener {
         addMouseListener(this);
 
         setPreferredSize(new Dimension(450, 450));
-        setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         setBackground(Color.WHITE);
         this.gerenciador = gerenciador;
@@ -63,12 +63,12 @@ public class Quadro extends Emissor implements MouseInputListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         var g2 = (Graphics2D) g;
-        for (FiguraGui x : gerenciador.obterArestas()) {
-            x.renderizar(g2);
-        }
-        for (FiguraGui x : gerenciador.obterNos()) {
-            x.renderizar(g2);
-        }
+        gerenciador
+                .obterArestas()
+                .forEach(x -> x.renderizar(g2));
+        gerenciador
+                .obterNos()
+                .forEach(x -> x.renderizar(g2));
     }
 
     protected void atualizarQuadro() {
@@ -82,6 +82,7 @@ public class Quadro extends Emissor implements MouseInputListener {
         var quadro = new Quadro(gerenciador);
         var painelBotoes = new JPanel();
         painelBotoes.setLayout(new GridLayout(1, 0));
+        painelBotoes.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         var botaoSelecionar = new JButton("Selecionar");
         var botaoNo = new JButton("Inserir nó");
         var botaoAresta = new JButton("Inserir aresta");
@@ -101,7 +102,9 @@ public class Quadro extends Emissor implements MouseInputListener {
         quadro.adicionarReceptor(gerenciador);
         quadro.setOpaque(true);
         moldura.setContentPane(containerExterno);
-        moldura.getContentPane().setLayout(new BoxLayout(moldura.getContentPane(), BoxLayout.Y_AXIS));
+        moldura
+                .getContentPane()
+                .setLayout(new BoxLayout(moldura.getContentPane(), BoxLayout.Y_AXIS));
         moldura.pack();
         moldura.setVisible(true);
     }

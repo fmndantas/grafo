@@ -1,4 +1,4 @@
-package com.fernando.gui;
+package com.fernando.gui.utils;
 
 public class XY {
     private int x;
