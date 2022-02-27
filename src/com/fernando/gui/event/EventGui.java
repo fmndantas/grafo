@@ -3,10 +3,10 @@ package com.fernando.gui.event;
 import com.fernando.gui.utils.XY;
 import com.fernando.gui.enums.EventGuiEnum;
 
-// todo construir os outros eventos
+// todo build other events
 public class EventGui {
-    private XY xy;
-    private EventGuiEnum eventType;
+    private final XY xy;
+    private final EventGuiEnum eventType;
 
     public EventGui(XY xy, EventGuiEnum eventType) {
         this.xy = xy;

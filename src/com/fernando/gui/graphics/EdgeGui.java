@@ -4,8 +4,8 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class EdgeGui extends FigureGui {
-    private NodeGui start;
-    private NodeGui end;
+    private final NodeGui start;
+    private final NodeGui end;
 
     public EdgeGui(Long id, Shape shape, NodeGui start, NodeGui end) {
         super(id, shape);

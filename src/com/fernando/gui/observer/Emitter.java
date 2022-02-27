@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Emitter extends JPanel {
-    private List<Receptor> receptors = new ArrayList<>();
+    private final List<Receptor> receptors = new ArrayList<>();
 
     public Emitter(GridLayout layout) {
         super(layout);

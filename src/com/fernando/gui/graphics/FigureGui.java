@@ -6,7 +6,7 @@ import com.fernando.gui.utils.XY;
 import java.awt.*;
 
 public abstract class FigureGui {
-    private Long id;
+    private final Long id;
     private Shape shape;
     private boolean selected;
 

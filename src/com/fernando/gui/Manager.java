@@ -17,8 +17,8 @@ public class Manager extends Receptor {
     private Board board;
     private Long currentFigureId = 1L;
     private FigureGui selectFigure;
-    private List<NodeGui> nodesInGui;
-    private List<EdgeGui> edgesInGui;
+    private final List<NodeGui> nodesInGui;
+    private final List<EdgeGui> edgesInGui;
 
     public Manager() {
         this.reaction = new EmptyReaction(this);
@@ -99,9 +99,9 @@ public class Manager extends Receptor {
         }
     }
 
-    public void moveSelectFigure(XY alvoXY) {
+    public void moveSelectFigure(XY target) {
         if (selectFigure != null) {
-            selectFigure.moveAbsolute(alvoXY);
+            selectFigure.moveAbsolute(target);
         }
     }
 }
