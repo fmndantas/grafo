@@ -1,10 +1,9 @@
 package com.fernando.gui;
 
 import com.fernando.gui.enums.EventGuiEnum;
-import com.fernando.gui.enums.EventoGrafoEnum;
-import com.fernando.gui.evento.EventoGui;
-import com.fernando.gui.grafico.FiguraGui;
-import com.fernando.gui.observer.Emissor;
+import com.fernando.gui.enums.EventGraphEnum;
+import com.fernando.gui.event.EventGui;
+import com.fernando.gui.observer.Emitter;
 import com.fernando.gui.utils.XY;
 
 import javax.swing.*;
@@ -12,10 +11,10 @@ import javax.swing.event.MouseInputListener;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
-public class Quadro extends Emissor implements MouseInputListener {
-    Gerenciador gerenciador;
+public class Board extends Emitter implements MouseInputListener {
+    Manager manager;
 
-    public Quadro(Gerenciador gerenciador) {
+    public Board(Manager manager) {
         super(new GridLayout(0, 1));
         addMouseMotionListener(this);
         addMouseListener(this);
@@ -23,32 +22,32 @@ public class Quadro extends Emissor implements MouseInputListener {
         setPreferredSize(new Dimension(450, 450));
 
         setBackground(Color.WHITE);
-        this.gerenciador = gerenciador;
+        this.manager = manager;
     }
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.ARRASTO));
+        emitGuiEvent(new EventGui(new XY(e.getX(), e.getY()), EventGuiEnum.DRAG));
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.MOVIMENTO));
+        emitGuiEvent(new EventGui(new XY(e.getX(), e.getY()), EventGuiEnum.MOVE));
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.CLIQUE));
+        emitGuiEvent(new EventGui(new XY(e.getX(), e.getY()), EventGuiEnum.CLICK));
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-         emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.PRESSAO));
+        emitGuiEvent(new EventGui(new XY(e.getX(), e.getY()), EventGuiEnum.PRESSURE));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-         emitirEGui(new EventoGui(new XY(e.getX(), e.getY()), EventGuiEnum.SOLTURA));
+        emitGuiEvent(new EventGui(new XY(e.getX(), e.getY()), EventGuiEnum.RELEASE));
     }
 
     @Override
@@ -63,23 +62,19 @@ public class Quadro extends Emissor implements MouseInputListener {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         var g2 = (Graphics2D) g;
-        gerenciador
-                .obterArestas()
-                .forEach(x -> x.renderizar(g2));
-        gerenciador
-                .obterNos()
-                .forEach(x -> x.renderizar(g2));
+        manager.getEdges().forEach(x -> x.render(g2));
+        manager.getNodes().forEach(x -> x.render(g2));
     }
 
-    protected void atualizarQuadro() {
+    protected void updateBoard() {
         repaint();
     }
 
     public static void createAndShowGUI() {
-        var moldura = new JFrame("Quadro");
+        var moldura = new JFrame("Board");
         moldura.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        var gerenciador = new Gerenciador();
-        var quadro = new Quadro(gerenciador);
+        var gerenciador = new Manager();
+        var quadro = new Board(gerenciador);
         var painelBotoes = new JPanel();
         painelBotoes.setLayout(new GridLayout(1, 0));
         painelBotoes.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
@@ -87,19 +82,19 @@ public class Quadro extends Emissor implements MouseInputListener {
         var botaoNo = new JButton("Inserir nó");
         var botaoAresta = new JButton("Inserir aresta");
         var botaoMover = new JButton("Mover");
-        botaoSelecionar.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.SELECIONAR));
-        botaoNo.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.INSERIR_NO));
-        botaoAresta.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.INSERIR_ARESTA));
-        botaoMover.addActionListener(e -> quadro.emitirEGrafo(EventoGrafoEnum.MOVER));
+        botaoSelecionar.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.SELECT));
+        botaoNo.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.INSERT_NODE));
+        botaoAresta.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.INSERT_EDGE));
+        botaoMover.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.MOVE));
         painelBotoes.add(botaoSelecionar);
         painelBotoes.add(botaoNo);
         painelBotoes.add(botaoAresta);
         painelBotoes.add(botaoMover);
-        gerenciador.setQuadro(quadro);
+        gerenciador.setBoard(quadro);
         var containerExterno = new JPanel();
         containerExterno.add(painelBotoes);
         containerExterno.add(quadro);
-        quadro.adicionarReceptor(gerenciador);
+        quadro.addReceptor(gerenciador);
         quadro.setOpaque(true);
         moldura.setContentPane(containerExterno);
         moldura
@@ -110,6 +105,6 @@ public class Quadro extends Emissor implements MouseInputListener {
     }
 
     public static void main(String[] args) {
-        javax.swing.SwingUtilities.invokeLater(Quadro::createAndShowGUI);
+        javax.swing.SwingUtilities.invokeLater(Board::createAndShowGUI);
     }
 }

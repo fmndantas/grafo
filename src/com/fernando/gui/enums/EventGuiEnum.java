@@ -1,10 +1,10 @@
 package com.fernando.gui.enums;
 
 public enum EventGuiEnum {
-    CLIQUE,
-    MOVIMENTO,
-    PRESSAO,
-    SOLTURA,
-    VAZIO,
-    ARRASTO
+    CLICK,
+    MOVE,
+    PRESSURE,
+    RELEASE,
+    EMPTY,
+    DRAG
 }
