@@ -1,13 +1,13 @@
-package com.fernando.gui.reacao;
+package com.fernando.gui.reaction;
 
 import com.fernando.gui.*;
 import com.fernando.gui.enums.EventGuiEnum;
 import com.fernando.gui.enums.ReactionStatusEnum;
 import com.fernando.gui.event.EventGui;
-import com.fernando.gui.graphics.NodeGui;
+import com.fernando.gui.graphics.builder.NoGuiBuilder;
 
-public class SelectReaction extends Reaction {
-    public SelectReaction(Manager manager) {
+public class NodeReaction extends Reaction {
+    public NodeReaction(Manager manager) {
         super(manager);
     }
 
@@ -15,13 +15,10 @@ public class SelectReaction extends Reaction {
     protected void executeReaction(EventGui e) {
         if (e.getEventType().equals(EventGuiEnum.PRESSURE)) {
             status = ReactionStatusEnum.INITIALIZED;
-            for (NodeGui f : manager.getNodes()) {
-                if (f.clickedIsInside(e)) {
-                    this.manager.selectNode(f);
-                } else {
-                    this.manager.unselectNode(f);
-                }
-            }
+            var noGuiBuilder = new NoGuiBuilder();
+            noGuiBuilder.setId(manager.getNextFigureId());
+            noGuiBuilder.buildShape(e.getXy());
+            manager.addNode(noGuiBuilder.getResult());
             status = ReactionStatusEnum.FINALIZED;
         }
     }

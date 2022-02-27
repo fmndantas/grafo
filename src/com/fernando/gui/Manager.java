@@ -6,7 +6,7 @@ import com.fernando.gui.graphics.EdgeGui;
 import com.fernando.gui.graphics.FigureGui;
 import com.fernando.gui.graphics.NodeGui;
 import com.fernando.gui.observer.Receptor;
-import com.fernando.gui.reacao.*;
+import com.fernando.gui.reaction.*;
 import com.fernando.gui.utils.XY;
 
 import java.util.ArrayList;
