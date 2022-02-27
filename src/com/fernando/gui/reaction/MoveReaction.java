@@ -1,4 +1,4 @@
-package com.fernando.gui.reacao;
+package com.fernando.gui.reaction;
 
 import com.fernando.gui.*;
 import com.fernando.gui.enums.EventGuiEnum;
