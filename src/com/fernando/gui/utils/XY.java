@@ -9,26 +9,26 @@ public class XY {
         this.y = y;
     }
 
-    public int obterX() {
+    public int getX() {
         return this.x;
     }
 
-    public int obterY() {
+    public int getY() {
         return this.y;
     }
 
-    public double distancia2(XY outro) {
-        double dx = Math.abs(this.x - outro.obterX());
-        double dy = Math.abs(this.y - outro.obterY());
+    public double distance2(XY outro) {
+        double dx = Math.abs(this.x - outro.getX());
+        double dy = Math.abs(this.y - outro.getY());
         return dx * dx + dy * dy;
     }
 
-    public double distancia(XY outro) {
-        return Math.sqrt(distancia2(outro));
+    public double distance(XY outro) {
+        return Math.sqrt(distance2(outro));
     }
 
     @Override
     public String toString() {
-        return "XY[x=" + this.obterX() + ", y=" + this.obterY() + "]";
+        return "XY[x=" + this.getX() + ", y=" + this.getY() + "]";
     }
 }

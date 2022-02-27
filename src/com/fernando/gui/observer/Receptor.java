@@ -1,23 +1,23 @@
 package com.fernando.gui.observer;
 
-import com.fernando.gui.evento.EventoGui;
-import com.fernando.gui.evento.EventoGuiVazio;
-import com.fernando.gui.enums.EventoGrafoEnum;
+import com.fernando.gui.event.EventGui;
+import com.fernando.gui.event.EmptyEventGui;
+import com.fernando.gui.enums.EventGraphEnum;
 
 public class Receptor {
-    protected EventoGrafoEnum eventoGrafoEnum;
-    protected EventoGui eventoGui;
+    protected EventGraphEnum graphEventType;
+    protected EventGui guiEventType;
 
     public Receptor() {
-        eventoGui = new EventoGuiVazio();
-        eventoGrafoEnum = EventoGrafoEnum.VAZIO;
+        guiEventType = new EmptyEventGui();
+        graphEventType = EventGraphEnum.EMPTY;
     }
 
-    public void receberEGui(EventoGui e) {
-        eventoGui = e;
+    public void receiveGuiEvent(EventGui e) {
+        guiEventType = e;
     }
 
-    public void receberTipoEGrafo(EventoGrafoEnum e) {
-        eventoGrafoEnum = e;
+    public void receiveGraphEventType(EventGraphEnum e) {
+        graphEventType = e;
     }
 }
