@@ -7,7 +7,7 @@ import com.fernando.gui.enums.ReactionStatusEnum;
 import javax.swing.*;
 
 public abstract class Reaction {
-    protected Manager manager;
+    protected final Manager manager;
     protected ReactionStatusEnum status;
 
     public Reaction(Manager manager) {
@@ -16,12 +16,8 @@ public abstract class Reaction {
     }
 
     public void execute(EventGui e) {
-        executeBeforeReaction(e);
         executeReaction(e);
         executeAfterReaction(e);
-    }
-
-    protected void executeBeforeReaction(EventGui e) {
     }
 
     protected abstract void executeReaction(EventGui e);

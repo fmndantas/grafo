@@ -1,8 +1,8 @@
 package com.fernando.gui.utils;
 
 public class XY {
-    private int x;
-    private int y;
+    private final int x;
+    private final int y;
 
     public XY(int x, int y) {
         this.x = x;

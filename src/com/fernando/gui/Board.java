@@ -12,7 +12,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class Board extends Emitter implements MouseInputListener {
-    Manager manager;
+    private final Manager manager;
 
     public Board(Manager manager) {
         super(new GridLayout(0, 1));
@@ -71,37 +71,35 @@ public class Board extends Emitter implements MouseInputListener {
     }
 
     public static void createAndShowGUI() {
-        var moldura = new JFrame("Board");
-        moldura.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        var gerenciador = new Manager();
-        var quadro = new Board(gerenciador);
-        var painelBotoes = new JPanel();
-        painelBotoes.setLayout(new GridLayout(1, 0));
-        painelBotoes.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
-        var botaoSelecionar = new JButton("Selecionar");
-        var botaoNo = new JButton("Inserir nó");
-        var botaoAresta = new JButton("Inserir aresta");
-        var botaoMover = new JButton("Mover");
-        botaoSelecionar.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.SELECT));
-        botaoNo.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.INSERT_NODE));
-        botaoAresta.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.INSERT_EDGE));
-        botaoMover.addActionListener(e -> quadro.emitGraphEvent(EventGraphEnum.MOVE));
-        painelBotoes.add(botaoSelecionar);
-        painelBotoes.add(botaoNo);
-        painelBotoes.add(botaoAresta);
-        painelBotoes.add(botaoMover);
-        gerenciador.setBoard(quadro);
-        var containerExterno = new JPanel();
-        containerExterno.add(painelBotoes);
-        containerExterno.add(quadro);
-        quadro.addReceptor(gerenciador);
-        quadro.setOpaque(true);
-        moldura.setContentPane(containerExterno);
-        moldura
-                .getContentPane()
-                .setLayout(new BoxLayout(moldura.getContentPane(), BoxLayout.Y_AXIS));
-        moldura.pack();
-        moldura.setVisible(true);
+        var frame = new JFrame("Board");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        var manager = new Manager();
+        var board = new Board(manager);
+        var panelWithButtons = new JPanel();
+        panelWithButtons.setLayout(new GridLayout(1, 0));
+        panelWithButtons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
+        var selectButton = new JButton("Select");
+        var nodeButton = new JButton("Insert node");
+        var edgeButton = new JButton("Insert edge");
+        var moveButton = new JButton("Move");
+        selectButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.SELECT));
+        nodeButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.INSERT_NODE));
+        edgeButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.INSERT_EDGE));
+        moveButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.MOVE));
+        panelWithButtons.add(selectButton);
+        panelWithButtons.add(nodeButton);
+        panelWithButtons.add(edgeButton);
+        panelWithButtons.add(moveButton);
+        manager.setBoard(board);
+        var outerContainer = new JPanel();
+        outerContainer.add(panelWithButtons);
+        outerContainer.add(board);
+        board.addReceptor(manager);
+        board.setOpaque(true);
+        frame.setContentPane(outerContainer);
+        frame.getContentPane().setLayout(new BoxLayout(frame.getContentPane(), BoxLayout.Y_AXIS));
+        frame.pack();
+        frame.setVisible(true);
     }
 
     public static void main(String[] args) {
