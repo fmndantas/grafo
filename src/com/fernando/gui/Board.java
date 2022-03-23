@@ -64,6 +64,7 @@ public class Board extends Emitter implements MouseInputListener {
         var g2 = (Graphics2D) g;
         manager.getEdges().forEach(x -> x.render(g2));
         manager.getNodes().forEach(x -> x.render(g2));
+        manager.getTemporary().forEach(x -> x.render(g2));
     }
 
     protected void updateBoard() {
@@ -79,14 +80,17 @@ public class Board extends Emitter implements MouseInputListener {
         panelWithButtons.setLayout(new GridLayout(1, 0));
         panelWithButtons.setMaximumSize(new Dimension(Integer.MAX_VALUE, 50));
         var selectButton = new JButton("Select");
+        var boxSelectButton = new JButton("Box select");
         var nodeButton = new JButton("Insert node");
         var edgeButton = new JButton("Insert edge");
         var moveButton = new JButton("Move");
         selectButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.SELECT));
+        boxSelectButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.BOX_SELECT));
         nodeButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.INSERT_NODE));
         edgeButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.INSERT_EDGE));
         moveButton.addActionListener(e -> board.emitGraphEvent(EventGraphEnum.MOVE));
         panelWithButtons.add(selectButton);
+        panelWithButtons.add(boxSelectButton);
         panelWithButtons.add(nodeButton);
         panelWithButtons.add(edgeButton);
         panelWithButtons.add(moveButton);

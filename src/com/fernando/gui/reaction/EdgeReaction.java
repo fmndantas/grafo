@@ -19,17 +19,16 @@ public class EdgeReaction extends Reaction {
     protected void executeReaction(EventGui e) {
         if (e.getEventType().equals(EventGuiEnum.PRESSURE)) {
             if (status == ReactionStatusEnum.CREATED) {
-                var startNode = manager.getNodeByClick(e);
-                if (startNode != null) {
+                var possibilities = manager.getNodesUnderClick(e);
+                if (possibilities.size() == 1) {
                     status = ReactionStatusEnum.INITIALIZED;
-                    start = startNode;
+                    start = possibilities.get(0);
                 }
             } else {
-                var endNode = manager.getNodeByClick(e);
-                if (endNode != null) {
-                    end = endNode;
-                    var edgeGuiBuilder = new EdgeGuiBuilder();
-                    edgeGuiBuilder.setId(manager.getNextFigureId());
+                var possibilities = manager.getNodesUnderClick(e);
+                if (possibilities.size() == 1) {
+                    end = possibilities.get(0);
+                    var edgeGuiBuilder = new EdgeGuiBuilder(manager.getNextFigureId());
                     edgeGuiBuilder.buildShape(start, end);
                     manager.addEdge(edgeGuiBuilder.getResult());
                     status = ReactionStatusEnum.FINALIZED;

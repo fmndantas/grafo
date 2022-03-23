@@ -44,13 +44,25 @@ public class NodeGui extends FigureGui {
 
     @Override
     public void moveAbsolute(XY target) {
-        var tx = new AffineTransform();
-        tx.translate(
+        var af = new AffineTransform();
+        af.translate(
                 target.getX() - getCenter().getX(),
                 target.getY() - getCenter().getY()
         );
-        setShape(tx.createTransformedShape(getShape()));
+        setShape(af.createTransformedShape(getShape()));
         setCenter(target);
+        for (EdgeGui a : getEdges()) {
+            a.moveByExtremeNodes();
+        }
+    }
+
+    @Override
+    public void moveRelatively(XY past, XY current) {
+        var delta = past.delta(current);
+        var af = new AffineTransform();
+        af.translate(delta.getX(), delta.getY());
+        setShape(af.createTransformedShape(getShape()));
+        setCenter(new XY(getX() + delta.getX(), getY() + delta.getY()));
         for (EdgeGui a : getEdges()) {
             a.moveByExtremeNodes();
         }

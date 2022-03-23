@@ -1,5 +1,7 @@
 package com.fernando.gui.graphics;
 
+import com.fernando.gui.utils.XY;
+
 import java.awt.*;
 import java.awt.geom.Line2D;
 
@@ -22,6 +24,16 @@ public class EdgeGui extends FigureGui {
                         end.getY()
                 )
         );
+    }
+
+    @Override
+    public void moveAbsolute(XY target) {
+
+    }
+
+    @Override
+    public void moveRelatively(XY past, XY target) {
+
     }
 
     @Override

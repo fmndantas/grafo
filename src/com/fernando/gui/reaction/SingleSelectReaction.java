@@ -6,8 +6,8 @@ import com.fernando.gui.enums.ReactionStatusEnum;
 import com.fernando.gui.event.EventGui;
 import com.fernando.gui.graphics.NodeGui;
 
-public class SelectReaction extends Reaction {
-    public SelectReaction(Manager manager) {
+public class SingleSelectReaction extends Reaction {
+    public SingleSelectReaction(Manager manager) {
         super(manager);
     }
 
@@ -15,13 +15,7 @@ public class SelectReaction extends Reaction {
     protected void executeReaction(EventGui e) {
         if (e.getEventType().equals(EventGuiEnum.PRESSURE)) {
             status = ReactionStatusEnum.INITIALIZED;
-            for (NodeGui f : manager.getNodes()) {
-                if (f.clickedIsInside(e)) {
-                    this.manager.selectNode(f);
-                } else {
-                    this.manager.unselectNode(f);
-                }
-            }
+            manager.selectNodesUnderClick(e);
             status = ReactionStatusEnum.FINALIZED;
         }
     }

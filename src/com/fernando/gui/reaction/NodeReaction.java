@@ -4,7 +4,7 @@ import com.fernando.gui.*;
 import com.fernando.gui.enums.EventGuiEnum;
 import com.fernando.gui.enums.ReactionStatusEnum;
 import com.fernando.gui.event.EventGui;
-import com.fernando.gui.graphics.builder.NoGuiBuilder;
+import com.fernando.gui.graphics.builder.NodeGuiBuilder;
 
 public class NodeReaction extends Reaction {
     public NodeReaction(Manager manager) {
@@ -15,8 +15,7 @@ public class NodeReaction extends Reaction {
     protected void executeReaction(EventGui e) {
         if (e.getEventType().equals(EventGuiEnum.PRESSURE)) {
             status = ReactionStatusEnum.INITIALIZED;
-            var noGuiBuilder = new NoGuiBuilder();
-            noGuiBuilder.setId(manager.getNextFigureId());
+            var noGuiBuilder = new NodeGuiBuilder(manager.getNextFigureId());
             noGuiBuilder.buildShape(e.getXy());
             manager.addNode(noGuiBuilder.getResult());
             status = ReactionStatusEnum.FINALIZED;

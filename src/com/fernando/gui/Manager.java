@@ -9,22 +9,18 @@ import com.fernando.gui.observer.Receptor;
 import com.fernando.gui.reaction.*;
 import com.fernando.gui.utils.XY;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Manager extends Receptor {
     private Reaction reaction;
     private Board board;
-    private Long currentFigureId = 1L;
-    private FigureGui selectFigure;
-    private final List<NodeGui> nodesInGui;
-    private final List<EdgeGui> edgesInGui;
+    private final FigureGuiManager figureGuiManager;
+    private final TemporaryFigureGuiManager temporaryFigureGuiManager;
 
     public Manager() {
         this.reaction = new EmptyReaction(this);
-        this.nodesInGui = new ArrayList<>();
-        this.edgesInGui = new ArrayList<>();
-        this.selectFigure = null;
+        this.figureGuiManager = new FigureGuiManager();
+        this.temporaryFigureGuiManager = new TemporaryFigureGuiManager();
     }
 
     public void setBoard(Board board) {
@@ -35,9 +31,14 @@ public class Manager extends Receptor {
         switch (graphEventType) {
             case INSERT_EDGE -> reaction = new EdgeReaction(this);
             case INSERT_NODE -> reaction = new NodeReaction(this);
-            case SELECT -> reaction = new SelectReaction(this);
+            case BOX_SELECT -> reaction = new BoxSelectReaction(this);
+            case SELECT -> reaction = new SingleSelectReaction(this);
             case MOVE -> reaction = new MoveReaction(this);
         }
+    }
+
+    public void updateBoard() {
+        board.updateBoard();
     }
 
     @Override
@@ -52,56 +53,50 @@ public class Manager extends Receptor {
         setReaction();
     }
 
+
+    public Long getNextFigureId() {
+        return figureGuiManager.getNextFigureId();
+    }
+
     public void addEdge(EdgeGui edgeGui) {
-        this.edgesInGui.add(edgeGui);
+        figureGuiManager.addEdge(edgeGui);
     }
 
     public List<EdgeGui> getEdges() {
-        return this.edgesInGui;
+        return figureGuiManager.getEdges();
     }
 
     public void addNode(NodeGui nodeGui) {
-        this.nodesInGui.add(nodeGui);
+        figureGuiManager.addNode(nodeGui);
     }
 
     public List<NodeGui> getNodes() {
-        return this.nodesInGui;
+        return figureGuiManager.getNodes();
     }
 
-    public NodeGui getNodeByClick(EventGui e) {
-        var possibles = this.nodesInGui
-                .stream()
-                .filter(x -> x.clickedIsInside(e))
-                .toList();
-        if (possibles.size() == 1) {
-            return possibles.get(0);
-        }
-        return null;
+    public List<NodeGui> getNodesUnderClick(EventGui e) {
+        return figureGuiManager.getGuiNodesUnderClick(e);
     }
 
-    public void updateBoard() {
-        board.updateBoard();
+    public void selectNodesUnderClick(EventGui e) {
+        figureGuiManager.selectNodesUnderClick(e);
     }
 
-    public Long getNextFigureId() {
-        return currentFigureId++;
+    public void moveSelectedGuiNodes(XY initial, XY current) {
+        figureGuiManager.moveSelectedGuiNodesRelatively(initial, current);
     }
 
-    public void selectNode(FigureGui f) {
-        f.selectFigure();
-        selectFigure = f;
+    public List<FigureGui> getTemporary() {
+        return temporaryFigureGuiManager.getFigures();
     }
 
-    public void unselectNode(NodeGui nodeGui) {
-        nodeGui.unselectFigure();
-        if (nodeGui.equals(selectFigure)) {
-            selectFigure = null;
-        }
+    public void updateSelectionBox(EventGui e) {
+        temporaryFigureGuiManager.updateSelectionBox(e);
     }
 
-    public void moveSelectFigure(XY target) {
-        if (selectFigure != null) {
-            selectFigure.moveAbsolute(target);
-        }
+    public void finalizeSelection() {
+        var selectionBox = temporaryFigureGuiManager.getSelectionBox();
+        figureGuiManager.selectNodesUnderSelectionBox(selectionBox);
+        temporaryFigureGuiManager.destroySelectionBox();
     }
 }

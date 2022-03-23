@@ -1,11 +1,12 @@
 package com.fernando.gui.graphics;
 
+import com.fernando.gui.Emptable;
 import com.fernando.gui.event.EventGui;
 import com.fernando.gui.utils.XY;
 
 import java.awt.*;
 
-public abstract class FigureGui {
+public abstract class FigureGui implements Emptable {
     private final Long id;
     private Shape shape;
     private boolean selected;
@@ -28,16 +29,12 @@ public abstract class FigureGui {
         return id;
     }
 
-    public boolean clickedIsInside(EventGui click) {
+    public boolean clickIsInside(EventGui click) {
         return xyIsInside(click.getXy());
     }
 
     private boolean xyIsInside(XY xy) {
         return shape.contains(xy.getX(), xy.getY());
-    }
-
-    public void moveAbsolute(XY target) {
-
     }
 
     public void selectFigure() {
@@ -52,7 +49,16 @@ public abstract class FigureGui {
         return selected;
     }
 
+    public abstract void moveAbsolute(XY target);
+
+    public abstract void moveRelatively(XY past, XY current);
+
     public abstract void render(Graphics2D g2);
+
+    @Override
+    public boolean empty() {
+        return false;
+    }
 
     @Override
     public String toString() {
