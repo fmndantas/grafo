@@ -13,6 +13,7 @@ public class NodeGuiBuilder {
     private int radius = 20;
 
     public NodeGuiBuilder(Long id) {
+        this.id = id;
     }
 
     public void buildShape(XY center) {

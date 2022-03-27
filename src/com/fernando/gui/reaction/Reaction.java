@@ -17,7 +17,7 @@ public abstract class Reaction {
 
     protected abstract void executeReaction(EventGui e);
 
-    protected void executeAfterReaction(EventGui e) {
+    private void executeAfterReaction(EventGui e) {
         manager.updateBoard();
         if (status == ReactionStatusEnum.FINALIZED) {
             recreateReaction();

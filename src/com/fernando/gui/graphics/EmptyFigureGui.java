@@ -1,5 +1,6 @@
 package com.fernando.gui.graphics;
 
+import com.fernando.gui.event.EventGui;
 import com.fernando.gui.utils.XY;
 
 import java.awt.*;
@@ -29,5 +30,15 @@ public class EmptyFigureGui extends FigureGui {
     @Override
     public boolean empty() {
         return true;
+    }
+
+    @Override
+    public boolean clickedInside(EventGui e) {
+        return false;
+    }
+
+    @Override
+    public void updateAssociatedEntitiesBeforeExclusion() {
+
     }
 }

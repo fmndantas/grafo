@@ -1,15 +1,16 @@
 package com.fernando.gui.graphics;
 
+import com.fernando.gui.event.EventGui;
 import com.fernando.gui.utils.XY;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class NodeGui extends FigureGui {
-    private final Set<EdgeGui> edges;
+    private Set<EdgeGui> edges;
     private XY center;
 
     public NodeGui(Long id, Shape shape, XY center) {
@@ -23,7 +24,7 @@ public class NodeGui extends FigureGui {
     }
 
     public Set<EdgeGui> getEdges() {
-        return Collections.unmodifiableSet(edges);
+        return edges;
     }
 
     public XY getCenter() {
@@ -40,6 +41,10 @@ public class NodeGui extends FigureGui {
 
     public int getY() {
         return getCenter().getY();
+    }
+
+    public void removeEdge(EdgeGui edgeGui) {
+        edges = edges.stream().filter(x -> x != edgeGui).collect(Collectors.toSet());
     }
 
     @Override
@@ -78,5 +83,17 @@ public class NodeGui extends FigureGui {
         g2.fill(getShape());
         g2.setColor(Color.BLACK);
         g2.draw(getShape());
+    }
+
+    @Override
+    public boolean clickedInside(EventGui e) {
+        return getShape().contains(e.getX(), e.getY());
+    }
+
+    @Override
+    public void updateAssociatedEntitiesBeforeExclusion() {
+        edges.forEach(x -> {
+            x.updateAssociatedEntitiesBeforeExclusion();
+        });
     }
 }

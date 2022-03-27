@@ -1,5 +1,6 @@
 package com.fernando.gui.graphics;
 
+import com.fernando.gui.event.EventGui;
 import com.fernando.gui.utils.XY;
 
 import java.awt.*;
@@ -38,7 +39,24 @@ public class EdgeGui extends FigureGui {
 
     @Override
     public void render(Graphics2D g2) {
-        g2.setColor(Color.BLACK);
+        if (isSelected()) {
+            g2.setColor(Color.PINK);
+        }
+        else {
+            g2.setColor(Color.BLACK);
+        }
         g2.draw(getShape());
+    }
+
+    @Override
+    public boolean clickedInside(EventGui e) {
+        var distance = Line2D.ptSegDist(start.getX(), start.getY(), end.getX(), end.getY(), e.getX(), e.getY());
+        return distance < 2;
+    }
+
+    @Override
+    public void updateAssociatedEntitiesBeforeExclusion() {
+        start.removeEdge(this);
+        end.removeEdge(this);
     }
 }

@@ -34,6 +34,7 @@ public class Manager extends Receptor {
             case BOX_SELECT -> reaction = new BoxSelectReaction(this);
             case SELECT -> reaction = new SingleSelectReaction(this);
             case MOVE -> reaction = new MoveReaction(this);
+            case ERASE -> reaction = new EraseReaction(this);
         }
     }
 
@@ -82,6 +83,10 @@ public class Manager extends Receptor {
         figureGuiManager.selectNodesUnderClick(e);
     }
 
+    public void selectEdgesUnderClick(EventGui e) {
+        figureGuiManager.selectEdgesUnderClick(e);
+    }
+
     public void moveSelectedGuiNodes(XY initial, XY current) {
         figureGuiManager.moveSelectedGuiNodesRelatively(initial, current);
     }
@@ -98,5 +103,9 @@ public class Manager extends Receptor {
         var selectionBox = temporaryFigureGuiManager.getSelectionBox();
         figureGuiManager.selectNodesUnderSelectionBox(selectionBox);
         temporaryFigureGuiManager.destroySelectionBox();
+    }
+
+    public void eraseElements(EventGui e) {
+        figureGuiManager.eraseElementsUnderClick(e);
     }
 }
