@@ -26,6 +26,10 @@ public class NodeGuiBuilder {
         );
     }
 
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setRadius(int radius) {
         this.radius = radius;
     }

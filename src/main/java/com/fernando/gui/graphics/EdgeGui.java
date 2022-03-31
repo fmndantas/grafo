@@ -27,6 +27,14 @@ public class EdgeGui extends FigureGui {
         );
     }
 
+    public NodeGui getStart() {
+        return start;
+    }
+
+    public NodeGui getEnd() {
+        return end;
+    }
+
     @Override
     public void moveAbsolute(XY target) {
 

@@ -90,7 +90,7 @@ public class FigureGuiManager {
     public void eraseElementsUnderClick(EventGui e) {
         nodesInGui.forEach(x -> {
             if (x.clickedInside(e)) {
-                edgesInGui = edgesInGui.stream().filter(y -> !x.getEdges().contains(y)).collect(Collectors.toList());;
+                edgesInGui = edgesInGui.stream().filter(y -> !x.getEdges().contains(y)).collect(Collectors.toList());
                 x.updateAssociatedEntitiesBeforeExclusion();
                 nodesInGui = nodesInGui.stream().filter(y -> y != x).collect(Collectors.toList());
             }

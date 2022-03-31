@@ -92,8 +92,8 @@ public class NodeGui extends FigureGui {
 
     @Override
     public void updateAssociatedEntitiesBeforeExclusion() {
-        edges.forEach(x -> {
+        for (EdgeGui x : edges) {
             x.updateAssociatedEntitiesBeforeExclusion();
-        });
+        }
     }
 }
