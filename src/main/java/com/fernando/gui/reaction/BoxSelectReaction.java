@@ -1,17 +1,17 @@
 package com.fernando.gui.reaction;
 
-import com.fernando.gui.*;
+import com.fernando.gui.Manager;
 import com.fernando.gui.enums.EventGuiEnum;
 import com.fernando.gui.enums.ReactionStatusEnum;
 import com.fernando.gui.event.EventGui;
 import com.fernando.gui.utils.XY;
 
-public class MoveReaction extends Reaction {
-    private XY start;
+public class BoxSelectReaction extends Reaction {
+    XY start;
 
-    public MoveReaction(Manager manager) {
+    public BoxSelectReaction(Manager manager) {
         super(manager);
-        this.start = new XY(-1, -1);
+        start = new XY(-1, -1);
     }
 
     @Override
@@ -20,12 +20,15 @@ public class MoveReaction extends Reaction {
             if (status == ReactionStatusEnum.CREATED) {
                 status = ReactionStatusEnum.INITIALIZED;
                 start = e.getXy();
+                manager.updateSelectionBox(e);
             } else if (status == ReactionStatusEnum.INITIALIZED) {
                 status = ReactionStatusEnum.FINALIZED;
+                manager.finalizeSelection();
             }
-        } else {
-            if (e.getEventType().equals(EventGuiEnum.MOVE) && status == ReactionStatusEnum.INITIALIZED) {
-                this.manager.moveSelectFigure(e.getXy());
+        }
+        if (e.getEventType().equals(EventGuiEnum.MOVE) && status == ReactionStatusEnum.INITIALIZED) {
+            if (e.getEventType().equals(EventGuiEnum.MOVE)) {
+                manager.updateSelectionBox(e);
             }
         }
     }

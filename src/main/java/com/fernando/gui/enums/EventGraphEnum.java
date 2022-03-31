@@ -5,5 +5,7 @@ public enum EventGraphEnum {
     INSERT_NODE,
     EMPTY,
     SELECT,
-    MOVE
+    BOX_SELECT,
+    MOVE,
+    ERASE
 }

@@ -17,14 +17,14 @@ public class XY {
         return this.y;
     }
 
-    public double distance2(XY outro) {
-        double dx = Math.abs(this.x - outro.getX());
-        double dy = Math.abs(this.y - outro.getY());
+    public double distance2(XY other) {
+        double dx = Math.abs(this.x - other.getX());
+        double dy = Math.abs(this.y - other.getY());
         return dx * dx + dy * dy;
     }
 
-    public double distance(XY outro) {
-        return Math.sqrt(distance2(outro));
+    public XY delta(XY destiny) {
+        return new XY(destiny.getX() - getX(), destiny.getY() - getY());
     }
 
     @Override

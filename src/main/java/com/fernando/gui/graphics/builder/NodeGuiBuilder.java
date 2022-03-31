@@ -6,16 +6,13 @@ import com.fernando.gui.graphics.NodeGui;
 import java.awt.*;
 import java.awt.geom.Ellipse2D;
 
-public class NoGuiBuilder {
+public class NodeGuiBuilder {
     private Long id = -1L;
     private XY center = new XY(-1, -1);
     private Shape shape = null;
     private int radius = 20;
 
-    public NoGuiBuilder() {
-    }
-
-    public void setId(Long id) {
+    public NodeGuiBuilder(Long id) {
         this.id = id;
     }
 
@@ -27,6 +24,10 @@ public class NoGuiBuilder {
                 2 * radius,
                 2 * radius
         );
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public void setRadius(int radius) {

@@ -15,18 +15,18 @@ public abstract class Reaction {
         this.status = ReactionStatusEnum.CREATED;
     }
 
-    public void execute(EventGui e) {
-        executeReaction(e);
-        executeAfterReaction(e);
-    }
-
     protected abstract void executeReaction(EventGui e);
 
-    protected void executeAfterReaction(EventGui e) {
+    private void executeAfterReaction(EventGui e) {
         manager.updateBoard();
         if (status == ReactionStatusEnum.FINALIZED) {
             recreateReaction();
         }
+    }
+
+    public void execute(EventGui e) {
+        executeReaction(e);
+        executeAfterReaction(e);
     }
 
     public void executeReactionInBackground(EventGui e) {

@@ -7,12 +7,12 @@ import java.awt.*;
 import java.awt.geom.Line2D;
 
 public class EdgeGuiBuilder {
-    private Long id = -1L;
+    private Long id;
     private Shape shape = null;
     private NodeGui start = null;
     private NodeGui end = null;
 
-    public void setId(Long id) {
+    public EdgeGuiBuilder(Long id) {
         this.id = id;
     }
 
